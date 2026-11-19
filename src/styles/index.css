@@ -1,0 +1,199 @@
+@import 'tailwindcss';
+
+/* ------------------------------------------------------------------
+   QAHWA design tokens
+   Contrast notes (WCAG): espresso/coffee on cream & paper pass AA for
+   body text. Caramel is used for text only on espresso backgrounds or
+   as decoration on light backgrounds.
+------------------------------------------------------------------- */
+@theme {
+  --color-espresso: #351306;
+  --color-coffee: #713719;
+  --color-caramel: #c58b5b;
+  --color-cream: #f2e8ce;
+  --color-paper: #fffdf7;
+  --color-sand: #e7d9b8;
+
+  /* Latin glyphs come from the first family, Arabic glyphs fall through to the second. */
+  --font-display: 'Cormorant Garamond', 'Amiri', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Manrope Variable', 'Tajawal', ui-sans-serif, system-ui, sans-serif;
+
+  --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-soft: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5rem;
+    background: var(--color-cream);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background: var(--color-cream);
+    color: var(--color-espresso);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.65;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+
+  /* Arabic: Amiri for display, Tajawal for text. Arabic is cursive, so never
+     letter-space it, uppercase it or fake-italicise it. */
+  :lang(ar) {
+    --font-display: 'Amiri', 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Tajawal', 'Manrope Variable', ui-sans-serif, system-ui, sans-serif;
+  }
+  :lang(ar) body {
+    line-height: 1.85;
+  }
+  :lang(ar) .tracking-label,
+  :lang(ar) [class*='tracking-'] {
+    letter-spacing: 0 !important;
+  }
+  :lang(ar) .italic,
+  :lang(ar) em {
+    font-style: normal;
+  }
+
+  ::selection {
+    background: var(--color-espresso);
+    color: var(--color-cream);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-coffee);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  .on-dark :focus-visible {
+    outline-color: var(--color-caramel);
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+@layer components {
+  /* Fluid editorial type scale */
+  .type-hero {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(3.1rem, 1.6rem + 6.4vw, 9.25rem);
+    line-height: 0.9;
+    letter-spacing: -0.025em;
+  }
+  .type-section {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(2.6rem, 1.6rem + 4.2vw, 6.25rem);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+  }
+  .type-statement {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(2.25rem, 1.4rem + 3.4vw, 5rem);
+    line-height: 1;
+    letter-spacing: -0.015em;
+  }
+  .type-lede {
+    font-size: clamp(1.05rem, 0.98rem + 0.3vw, 1.25rem);
+    line-height: 1.6;
+  }
+  .tracking-label {
+    letter-spacing: 0.18em;
+  }
+  .label {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+  }
+
+  :lang(ar) .type-hero {
+    font-size: clamp(2.6rem, 1.4rem + 5.2vw, 7.25rem);
+    line-height: 1.2;
+    font-weight: 700;
+  }
+  :lang(ar) .type-section {
+    font-size: clamp(2.3rem, 1.4rem + 3.6vw, 5.25rem);
+    line-height: 1.2;
+    font-weight: 700;
+  }
+  :lang(ar) .type-statement {
+    font-size: clamp(2rem, 1.3rem + 2.8vw, 4.25rem);
+    line-height: 1.3;
+    font-weight: 700;
+  }
+  :lang(ar) .label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: none;
+  }
+
+  .container-editorial {
+    width: 100%;
+    max-width: 92rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 0.6rem + 3vw, 4rem);
+  }
+
+  /* Underline that draws in from the reading-start edge */
+  .link-draw {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    transition: background-size 0.5s var(--ease-editorial);
+  }
+  [dir='rtl'] .link-draw {
+    background-position: 100% 100%;
+  }
+  .link-draw:hover,
+  .link-draw:focus-visible,
+  .link-draw[aria-current='true'] {
+    background-size: 100% 1px;
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Marquee — static when motion is reduced */
+@keyframes marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+@keyframes marquee-rtl {
+  to {
+    transform: translate3d(50%, 0, 0);
+  }
+}
+.marquee-track {
+  animation: marquee 48s linear infinite;
+}
+[dir='rtl'] .marquee-track {
+  animation-name: marquee-rtl;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}

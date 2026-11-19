@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>QAHWA | Coffee, Drinks &amp; Desserts</title>
+    <meta
+      name="description"
+      content="QAHWA is a coffee shop in Nabatieh, Lebanon. Explore the full menu of coffee, lattes, iced drinks, frappes, smoothies, milkshakes, matcha and desserts."
+    />
+    <meta name="theme-color" content="#F2E8CE" />
+    <meta name="color-scheme" content="light" />
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="QAHWA" />
+    <meta property="og:title" content="QAHWA | Coffee, Drinks &amp; Desserts" />
+    <meta
+      property="og:description"
+      content="More than coffee. A moment to yourself. Explore QAHWA's menu of coffee, drinks and desserts in Nabatieh, Lebanon."
+    />
+    <meta property="og:image" content="/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="ar_LB" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "CafeOrCoffeeShop",
+        "name": "QAHWA",
+        "servesCuisine": "Coffee",
+        "address": { "@type": "PostalAddress", "addressLocality": "Nabatieh", "addressCountry": "LB" },
+        "sameAs": ["https://www.instagram.com/qahwa.nab/"]
+      }
+    </script>
+
+    <script>
+      // Apply the saved (or browser-preferred) language before first paint to avoid a direction flash.
+      ;(function () {
+        var lang = 'en'
+        try {
+          var s = localStorage.getItem('qahwa-lang')
+          if (s === 'en' || s === 'ar') lang = s
+          else if ((navigator.language || '').toLowerCase().indexOf('ar') === 0) lang = 'ar'
+        } catch (e) {}
+        document.documentElement.lang = lang
+        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr'
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <p style="padding:2rem;font-family:sans-serif">QAHWA — Coffee, Drinks &amp; Desserts. Please enable JavaScript to view the menu, or visit
+        <a href="https://www.instagram.com/qahwa.nab/">@qahwa.nab on Instagram</a>.</p>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
